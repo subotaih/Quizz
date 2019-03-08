@@ -1,0 +1,15 @@
+{ "questions" : [
+  {"question": "Puissance de goku ?",
+  "answer1": "Over 4000",
+    "answer2" :"42",
+    "answer3" :"Moins que vegeta",
+    "rightAnswer" : 1
+  },
+  {"question": "Puissance de vegeta ?",
+    "answer1": "test",
+    "answer2" :"test",
+    "answer3" :"test    (bonne réponse)",
+    "rightAnswer" : 3
+  }
+]
+}
