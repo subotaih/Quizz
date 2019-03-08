@@ -1,0 +1,8 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+<string-array android:name="devise">
+    <item>franc</item>
+    <item>dollar</item>
+    <item>dinar</item>
+</string-array>
+</resources>
