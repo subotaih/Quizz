@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -16,7 +17,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends Activity {
@@ -48,14 +51,14 @@ public class MainActivity extends Activity {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                int index = 1;
+                    Question question = questionList.get(index);
 
-                    
-                    EditText userInput = findViewById(R.id.number);
-                    double convertedNb = Double.valueOf(userInput.getText().toString()) *1.2;
+                    TextView questionView = findViewById(R.id.question);
+                    questionView.setText(question.getQuestion());
 
-                    Button button = findViewById(R.id.button);
-                    button.setText(String.valueOf(convertedNb));
-                    Toast.makeText(MainActivity.this, String.valueOf(convertedNb), Toast.LENGTH_LONG).show();
+
+                    Toast.makeText(MainActivity.this, "Right !", Toast.LENGTH_LONG).show();
                 }
             });
 

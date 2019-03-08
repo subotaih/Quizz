@@ -8,10 +8,12 @@ import java.util.ArrayList;
 
 public class Question {
     private String question;
-    private String answer1;
-    private String answer2;
-    private String answer3;
+    private Object answer;
     private int rightAnswer;
+
+    public Object getAnswer() { return answer; }
+
+    public void setAnswer(Object answer) { this.answer = answer; }
 
     public String getQuestion() {
         return question;
@@ -19,30 +21,6 @@ public class Question {
 
     public void setQuestion(String question) {
         this.question = question;
-    }
-
-    public String getAnswer1() {
-        return answer1;
-    }
-
-    public void setAnswer1(String answer1) {
-        this.answer1 = answer1;
-    }
-
-    public String getAnswer2() {
-        return answer2;
-    }
-
-    public void setAnswer2(String answer2) {
-        this.answer2 = answer2;
-    }
-
-    public String getAnswer3() {
-        return answer3;
-    }
-
-    public void setAnswer3(String answer3) {
-        this.answer3 = answer3;
     }
 
     public int getRightAnswer() {
@@ -58,9 +36,8 @@ public class Question {
         // Deserialize json into object fields
         try {
             q.question = jsonObject.getString("question");
-            q.answer1 = jsonObject.getString("answer1");
-            q.answer2 = jsonObject.getString("answer2");
-            q.answer3 = jsonObject.getString("answer3");
+            //JSONArray array = jsonObject.getJSONArray("answer");
+            q.answer = jsonObject.get("answer");
             q.rightAnswer = jsonObject.getInt("rightAnswer");
         } catch (JSONException e) {
             e.printStackTrace();
