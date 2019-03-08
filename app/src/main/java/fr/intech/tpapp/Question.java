@@ -8,12 +8,12 @@ import java.util.ArrayList;
 
 public class Question {
     private String question;
-    private Object answer;
+    private String[] answers;
     private int rightAnswer;
 
-    public Object getAnswer() { return answer; }
+    public String[] getAnswers() { return answers; }
 
-    public void setAnswer(Object answer) { this.answer = answer; }
+    public void setAnswers(String[] answers) { this.answers = answers; }
 
     public String getQuestion() {
         return question;
@@ -37,7 +37,12 @@ public class Question {
         try {
             q.question = jsonObject.getString("question");
             //JSONArray array = jsonObject.getJSONArray("answer");
-            q.answer = jsonObject.get("answer");
+            JSONArray array = jsonObject.getJSONArray("answers");
+            String[] answers = new String[array.length()];
+            for(int i= 0; i<array.length(); i++) {
+                answers[i]= array.getString(i);
+            }
+            q.answers = answers;
             q.rightAnswer = jsonObject.getInt("rightAnswer");
         } catch (JSONException e) {
             e.printStackTrace();

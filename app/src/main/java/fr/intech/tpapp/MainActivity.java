@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,13 +26,13 @@ import java.util.List;
 public class MainActivity extends Activity {
 
     protected ArrayList<Question> questionList;
+    protected int index = 0;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState); //Obligatoire pour que l'application fonctionne
             Log.i("MyActivity", "convert!"); //Simple message de log
             setContentView(R.layout.activity_main); //Utilise ce fichier-là, veut dire : prends ce XML et plaque-le dans activity -- R.id.X pour accéder aux identifiants créés
-            Button button = findViewById(R.id.button);
             //button.setText(R.string.app_name); Chaque attribut (text, etc.) a un getter et un setter automatiquement pour changer les valeurs dynamiquement
             //button.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
 
@@ -46,22 +47,32 @@ public class MainActivity extends Activity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            Question question = questionList.get(index);
+            String[] answers = question.getAnswers();
+            TextView questionView = findViewById(R.id.question);
+            questionView.setText(question.getQuestion());
 
-
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                int index = 1;
-                    Question question = questionList.get(index);
-
-                    TextView questionView = findViewById(R.id.question);
-                    questionView.setText(question.getQuestion());
-
-
-                    Toast.makeText(MainActivity.this, "Right !", Toast.LENGTH_LONG).show();
-                }
-            });
-
+            LinearLayout l = findViewById(R.id.linearLayout);
+            int answerCount = 1;
+            for (String s:answers) {
+                Button newButton= new Button(this);
+                newButton.setText(s);
+                newButton.setBackgroundColor(0xFF99D6D6);
+                final int rightAnswer = question.getRightAnswer();
+                final int thisAnswer = answerCount;
+                newButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(thisAnswer == rightAnswer ) {
+                            Toast.makeText(MainActivity.this, "Right ! +5pts ", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(MainActivity.this, "Wrong ! -5pts ", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+                l.addView(newButton);
+                answerCount++;
+            }
         }
 
 
