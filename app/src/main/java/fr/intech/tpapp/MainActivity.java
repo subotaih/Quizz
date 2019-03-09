@@ -4,11 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,15 +15,15 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Observer;
+
 
 public class MainActivity extends Activity {
 
     protected ArrayList<Question> questionList;
-    protected int index = 0;
+    protected final ObservableIndex index = new ObservableIndex(0);
+    protected int score = 0;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -47,33 +44,42 @@ public class MainActivity extends Activity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            Question question = questionList.get(index);
-            String[] answers = question.getAnswers();
-            TextView questionView = findViewById(R.id.question);
-            questionView.setText(question.getQuestion());
-
-            LinearLayout l = findViewById(R.id.linearLayout);
-            int answerCount = 1;
-            for (String s:answers) {
-                Button newButton= new Button(this);
-                newButton.setText(s);
-                newButton.setBackgroundColor(0xFF99D6D6);
-                final int rightAnswer = question.getRightAnswer();
-                final int thisAnswer = answerCount;
-                newButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if(thisAnswer == rightAnswer ) {
-                            Toast.makeText(MainActivity.this, "Right ! +5pts ", Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(MainActivity.this, "Wrong ! -5pts ", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-                l.addView(newButton);
-                answerCount++;
-            }
+            createQuestionView ();
         }
+
+    private void createQuestionView() {
+
+        Question question = questionList.get(index.getValue());
+        String[] answers = question.getAnswers();
+        TextView questionView = findViewById(R.id.question);
+        questionView.setText(question.getQuestion());
+
+        LinearLayout l = findViewById(R.id.linearLayout);
+        int answerCount = 1;
+        for (String s:answers) {
+            Button newButton= new Button(this);
+            newButton.setText(s);
+            newButton.setBackgroundColor(0xFF99D6D6);
+            final int rightAnswer = question.getRightAnswer();
+            final int thisAnswer = answerCount;
+            newButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(thisAnswer == rightAnswer ) {
+                        Toast.makeText(MainActivity.this, "Right ! +5pts ", Toast.LENGTH_LONG).show();
+                        score += 5;
+                    } else {
+                        Toast.makeText(MainActivity.this, "Wrong ! -5pts ", Toast.LENGTH_LONG).show();
+                        if(score > 5) score -= 5;
+                        else score = 0;
+                    }
+                    index.setValue(index.getValue() +1);
+                }
+            });
+            l.addView(newButton);
+            answerCount++;
+        }
+    }
 
 
     public String loadJSONFromAsset(Context context) {
