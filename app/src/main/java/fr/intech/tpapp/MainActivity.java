@@ -16,7 +16,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Observer;
 
 
 public class MainActivity extends Activity {
@@ -24,6 +23,8 @@ public class MainActivity extends Activity {
     protected ArrayList<Question> questionList;
     protected final ObservableIndex index = new ObservableIndex(0);
     protected int score = 0;
+    protected TextView questionView;
+    protected LinearLayout layout;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +52,10 @@ public class MainActivity extends Activity {
 
         Question question = questionList.get(index.getValue());
         String[] answers = question.getAnswers();
-        TextView questionView = findViewById(R.id.question);
+        questionView = findViewById(R.id.question);
         questionView.setText(question.getQuestion());
 
-        LinearLayout l = findViewById(R.id.linearLayout);
+        layout = findViewById(R.id.linearLayout);
         int answerCount = 1;
         for (String s:answers) {
             Button newButton= new Button(this);
@@ -74,9 +75,12 @@ public class MainActivity extends Activity {
                         else score = 0;
                     }
                     index.setValue(index.getValue() +1);
+                    layout.removeAllViews();
+                    if (index.getValue() >= questionList.size()); //redirect vers la fin du quizz
+                    else createQuestionView();
                 }
             });
-            l.addView(newButton);
+            layout.addView(newButton);
             answerCount++;
         }
     }
