@@ -11,21 +11,23 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
-        android:id="@+id/question"/>
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="Bienvenue sur la machine à Quizz !"/>
 
     <Button
+        android:id="@+id/animes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start !"
-        android:id="@+id/button"/>
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:text="Quizz animés"/>
 
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
-    </LinearLayout>
+    <Button
+        android:id="@+id/games"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Quizz jeux-vidéos"/>
 
 </LinearLayout>
