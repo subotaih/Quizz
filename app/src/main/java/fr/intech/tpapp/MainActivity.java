@@ -2,7 +2,6 @@ package fr.intech.tpapp;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -29,18 +28,13 @@ public class MainActivity extends Activity {
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState); //Obligatoire pour que l'application fonctionne
-            Log.i("MyActivity", "convert!"); //Simple message de log
             setContentView(R.layout.activity_main); //Utilise ce fichier-là, veut dire : prends ce XML et plaque-le dans activity -- R.id.X pour accéder aux identifiants créés
-            //button.setText(R.string.app_name); Chaque attribut (text, etc.) a un getter et un setter automatiquement pour changer les valeurs dynamiquement
-            //button.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
 
-            JSONObject jsonObj = null;
-            JSONArray data = null;
             try {
-                jsonObj = new JSONObject(loadJSONFromAsset(this));
-
-                data = jsonObj.getJSONArray("questions");
+                JSONObject jsonObj = new JSONObject(loadJSONFromAsset(this));
+                JSONArray data = jsonObj.getJSONArray("questions");
                 questionList = Question.fromJson(data);
+
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -64,6 +58,7 @@ public class MainActivity extends Activity {
             final int rightAnswer = question.getRightAnswer();
             final int thisAnswer = answerCount;
             newButton.setOnClickListener(new View.OnClickListener() {
+
                 @Override
                 public void onClick(View v) {
                     if(thisAnswer == rightAnswer ) {
@@ -76,7 +71,9 @@ public class MainActivity extends Activity {
                     }
                     index.setValue(index.getValue() +1);
                     layout.removeAllViews();
-                    if (index.getValue() >= questionList.size()); //redirect vers la fin du quizz
+                    if (index.getValue() >= questionList.size()) {
+                        questionView.setText("Félicitaiton ! Votre score est de " + score);
+                    }
                     else createQuestionView();
                 }
             });

@@ -1,17 +1,110 @@
-{ "questions" : [
-  {"question": "Puissance de goku ?",
-  "answers": ["Over 4000",
-    "42",
-    "Moins que vegeta"
-  ],
-    "rightAnswer" : 1
-  },
-  {"question": "Puissance de vegeta ?",
-    "answers": ["test",
-      "test",
-      "test    (bonne réponse)"
-    ],
-    "rightAnswer" : 3
-  }
-]
+{
+  "questions": [
+    {
+      "difficulty": "medium",
+      "question": "In Dragon Ball Z, who was the first character to go Super Saiyan 2?",
+      "rightAnswer": 4,
+      "answers": [
+        "Goku",
+        "Vegeta",
+        "Trunks",
+        "Gohan"
+      ]
+    },
+    {
+      "difficulty": "easy",
+      "question": "What is the last name of Edward and Alphonse in the Fullmetal Alchemist series.",
+      "rightAnswer": 2,
+      "answers": [
+        "Ellis",
+        "Elric",
+        "Eliek",
+        "Elwood"
+      ]
+    },
+    {
+      "difficulty": "medium",
+      "question": "The anime Attack on Titan was directed by Tetsurō Araki, the same person who directed the anime Highschool of the Dead.",
+      "rightAnswer": "1",
+      "answers": [
+        "True",
+        "False"
+      ]
+    },
+    {
+      "difficulty": "medium",
+      "question": "In the anime Assassination Classroom what is the class that Korosensei teaches?",
+      "rightAnswer": 2,
+      "incorrect_answers": [
+        "Class 3-A",
+        "Class 3-E",
+        "Class 3-B",
+        "Class 3-D"
+      ]
+    },
+    {
+      "difficulty": "medium",
+      "question": "What is the name of the final villain in the manga series &quot;Bleach&quot;?",
+      "rightAnswer": 3,
+      "answers": [
+        "Juha Bach",
+        "Yuhabah",
+        "Yhwach",
+        "Juhabach"
+      ]
+    },
+    {
+      "difficulty": "easy",
+      "question": "In &quot;A Certain Scientific Railgun&quot;, how many &quot;sisters&quot; did Accelerator have to kill to achieve the rumored level 6?",
+      "rightAnswer": 1,
+      "answers": [
+        "20,000",
+        "128",
+        "10,000",
+        "5,000"
+      ]
+    },
+    {
+      "difficulty": "easy",
+      "question": "In the 2012 animated film &quot;Wolf Children&quot;, what are the names of the wolf children?",
+      "rightAnswer": 2,
+      "answers": [
+        "Hana &amp; Yuki",
+        "Ame & Yuki",
+        "Ame &amp; Hana",
+        "Chuck &amp; Anna"
+      ]
+    },
+    {
+      "difficulty": "hard",
+      "question": "In what year did the manga &quot;Ping Pong&quot; begin serialization?",
+      "rightAnswer": "4",
+      "answers": [
+        "2014",
+        "2010",
+        "2003",
+        "1996"
+      ]
+    },
+    {
+      "difficulty": "medium",
+      "question": "Who is the creator of the manga series &quot;One Piece&quot;?",
+      "rightAnswer": 1,
+      "answers": [
+        "Eiichiro Oda",
+        "Yoshihiro Togashi",
+        "Hayao Miyazaki",
+        "Masashi Kishimoto"
+      ]
+    },
+    {
+      "difficulty": "medium",
+      "question": "In &quot;To Love-Ru: Darkness&quot;, Yami reveals her real name is Eve.",
+      "rightAnswer": "1",
+      "answers": [
+        "True",
+        "False"
+      ]
+    }
+  ]
 }
