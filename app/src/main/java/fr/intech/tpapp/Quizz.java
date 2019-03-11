@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.lang.reflect.Method;
 
 
 public class Quizz extends Activity {
@@ -32,8 +33,7 @@ public class Quizz extends Activity {
         try {
             ObjectMapper obj = new ObjectMapper();
             obj.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            if (json == "data") questionList = obj.readValue(getResources().openRawResource(R.raw.data), Questions.class);
-            else if (json == "video_games") questionList = obj.readValue(getResources().openRawResource(R.raw.video_games), Questions.class);
+           questionList = obj.readValue(getResources().openRawResource(getResources().getIdentifier(json, "raw", this.getPackageName())), Questions.class);
 
         } catch ( IOException e) {
             e.printStackTrace();
