@@ -25,10 +25,10 @@
     {
       "difficulty": "medium",
       "question": "The anime Attack on Titan was directed by Tetsurō Araki, the same person who directed the anime Highschool of the Dead.",
-      "rightAnswer": "1",
+      "rightAnswer": 1,
       "answers": [
-        "True",
-        "False"
+        "vrai",
+        "faux"
       ]
     },
     {
@@ -44,7 +44,7 @@
     },
     {
       "difficulty": "medium",
-      "question": "What is the name of the final villain in the manga series &quot;Bleach&quot;?",
+      "question": "What is the name of the final villain in the manga series Bleach?",
       "rightAnswer": 3,
       "answers": [
         "Juha Bach",
@@ -106,5 +106,6 @@
         "False"
       ]
     }
-  ]
+  ],
+  "type" : "Anime"
 }

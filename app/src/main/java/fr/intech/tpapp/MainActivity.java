@@ -1,6 +1,5 @@
 package fr.intech.tpapp;
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,18 +7,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends Activity {
 
-    protected ArrayList<Question> questionList;
+    protected Questions questionList;
     protected final ObservableIndex index = new ObservableIndex(0);
     protected int score = 0;
     protected TextView questionView;
@@ -31,20 +27,22 @@ public class MainActivity extends Activity {
             setContentView(R.layout.activity_main); //Utilise ce fichier-là, veut dire : prends ce XML et plaque-le dans activity -- R.id.X pour accéder aux identifiants créés
 
             try {
-                JSONObject jsonObj = new JSONObject(loadJSONFromAsset(this));
-                JSONArray data = jsonObj.getJSONArray("questions");
-                questionList = Question.fromJson(data);
+                //JSONObject jsonObj = new JSONObject(loadJSONFromAsset(this));
+                //JSONArray data = jsonObj.getJSONArray("questions");
+                //questionList = Question.fromJson(data);
+                ObjectMapper obj = new ObjectMapper();
+                obj.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+                questionList = obj.readValue(getResources().openRawResource(R.raw.data), Questions.class);
 
-
-            } catch (JSONException e) {
+            } catch ( IOException e) {
                 e.printStackTrace();
             }
             createQuestionView ();
         }
 
     private void createQuestionView() {
-
-        Question question = questionList.get(index.getValue());
+        final List<Question> q = questionList.getQuestions();
+        Question question = q.get(index.getValue());
         String[] answers = question.getAnswers();
         questionView = findViewById(R.id.question);
         questionView.setText(question.getQuestion());
@@ -52,7 +50,7 @@ public class MainActivity extends Activity {
         layout = findViewById(R.id.linearLayout);
         int answerCount = 1;
         for (String s:answers) {
-            Button newButton= new Button(this);
+            final Button newButton= new Button(this);
             newButton.setText(s);
             newButton.setBackgroundColor(0xFF99D6D6);
             final int rightAnswer = question.getRightAnswer();
@@ -71,8 +69,8 @@ public class MainActivity extends Activity {
                     }
                     index.setValue(index.getValue() +1);
                     layout.removeAllViews();
-                    if (index.getValue() >= questionList.size()) {
-                        questionView.setText("Félicitaiton ! Votre score est de " + score);
+                    if (index.getValue() >= q.size()) {
+                        questionView.setText("Félicitation ! Votre score est de " + score);
                     }
                     else createQuestionView();
                 }
@@ -83,11 +81,11 @@ public class MainActivity extends Activity {
     }
 
 
-    public String loadJSONFromAsset(Context context) {
+   /* public String loadJSONFromAsset(Context context) {
         String json = null;
         try {
-            InputStream is = context.getAssets().open("data.json");
-
+            //InputStream is = context.getAssets().open("data.json");
+            InputStream is = context.getResources().openRawResource(R.raw.data);
             int size = is.available();
 
             byte[] buffer = new byte[size];
@@ -105,6 +103,6 @@ public class MainActivity extends Activity {
         }
         return json;
 
-    }
+    } */
 
 }

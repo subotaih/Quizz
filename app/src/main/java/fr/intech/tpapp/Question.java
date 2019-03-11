@@ -1,10 +1,5 @@
 package fr.intech.tpapp;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 public class Question {
     private String question;
@@ -31,12 +26,10 @@ public class Question {
         this.rightAnswer = rightAnswer;
     }
 
-    public static Question fromJson(JSONObject jsonObject) {
+     /* public static Question fromJson(JSONObject jsonObject) {
         Question q = new Question();
-        // Deserialize json into object fields
         try {
             q.question = jsonObject.getString("question");
-            //JSONArray array = jsonObject.getJSONArray("answer");
             JSONArray array = jsonObject.getJSONArray("answers");
             String[] answers = new String[array.length()];
             for(int i= 0; i<array.length(); i++) {
@@ -48,13 +41,13 @@ public class Question {
             e.printStackTrace();
             return null;
         }
-        // Return new object
         return q;
     }
+
     public static ArrayList<Question> fromJson(JSONArray jsonArray) {
         JSONObject questionJson;
         ArrayList<Question> questions = new ArrayList<Question>(jsonArray.length());
-        // Process each result in json array, decode and convert to business object
+
         for (int i=0; i < jsonArray.length(); i++) {
             try {
                 questionJson = jsonArray.getJSONObject(i);
@@ -68,8 +61,7 @@ public class Question {
                 questions.add(question);
             }
         }
-
         return questions;
     }
-
+*/
 }
