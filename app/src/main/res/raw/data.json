@@ -55,7 +55,7 @@
     },
     {
       "difficulty": "easy",
-      "question": "In &quot;A Certain Scientific Railgun&quot;, how many &quot;sisters&quot; did Accelerator have to kill to achieve the rumored level 6?",
+      "question": "In A Certain Scientific Railgun, how many sisters did Accelerator have to kill to achieve the rumored level 6?",
       "rightAnswer": 1,
       "answers": [
         "20,000",
@@ -66,18 +66,18 @@
     },
     {
       "difficulty": "easy",
-      "question": "In the 2012 animated film &quot;Wolf Children&quot;, what are the names of the wolf children?",
+      "question": "In the 2012 animated film Wolf Children, what are the names of the wolf children?",
       "rightAnswer": 2,
       "answers": [
-        "Hana &amp; Yuki",
+        "Hana & Yuki",
         "Ame & Yuki",
-        "Ame &amp; Hana",
-        "Chuck &amp; Anna"
+        "Ame & Hana",
+        "Chuck & Anna"
       ]
     },
     {
       "difficulty": "hard",
-      "question": "In what year did the manga &quot;Ping Pong&quot; begin serialization?",
+      "question": "In what year did the manga Ping Pong begin serialization?",
       "rightAnswer": "4",
       "answers": [
         "2014",
@@ -99,7 +99,7 @@
     },
     {
       "difficulty": "medium",
-      "question": "In &quot;To Love-Ru: Darkness&quot;, Yami reveals her real name is Eve.",
+      "question": "In To Love-Ru: Darkness, Yami reveals her real name is Eve.",
       "rightAnswer": "1",
       "answers": [
         "True",
