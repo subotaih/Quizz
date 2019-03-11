@@ -1,0 +1,115 @@
+{
+  "questions": [
+    {
+      "difficulty": "medium",
+      "question": "When Halo 3: ODST was unveiled in 2008, it had a different title. What was the game formally called?",
+      "rightAnswer": "3",
+      "answers": [
+        "Halo 3: Helljumpers",
+        "Halo 3: Phantom",
+        "Halo 3: Recon",
+        "Halo 3: Guerilla"
+      ]
+    },
+    {
+      "difficulty": "medium",
+      "question": "What was the code name for the &quot;Nintendo Gamecube&quot;?",
+      "rightAnswer": "1",
+      "answers": [
+        "Dolphin",
+        "Nitro",
+        "Revolution",
+        "Atlantis"
+      ]
+    },
+    {
+      "difficulty": "medium",
+      "question": "How many Star Spirits do you rescue in the Nintendo 64 video game &quot;Paper Mario&quot;?",
+      "rightAnswer": "3",
+      "answers": [
+        "5",
+        "10",
+        "7",
+        "12"
+      ]
+    },
+    {
+      "difficulty": "medium",
+      "question": "Which was the first video game to be produced by development company Rare?",
+      "rightAnswer": "4",
+      "answers": [
+        "R.C. Pro-Am",
+        "Donkey Kong Country",
+        "Battletoads",
+        "Slalom"
+      ]
+    },
+    {
+      "difficulty": "medium",
+      "question": "In what year were achivements added to Steam?",
+      "rightAnswer": "4",
+      "answers": [
+        "2008",
+        "2009",
+        "2006",
+        "2007"
+      ]
+    },
+    {
+      "difficulty": "medium",
+      "question": "What was the first weapon pack for &quot;PAYDAY 2&quot;?",
+      "rightAnswer": "1",
+      "answers": [
+        "The Gage Weapon Pack #1",
+        "The Overkill Pack",
+        "The Gage Chivalry Pack",
+        "The Gage Historical Pack"
+      ]
+    },
+    {
+      "difficulty": "medium",
+      "question": "What is the name of the common, gun-toting enemies of the &quot;Oddworld&quot; video game series?",
+      "rightAnswer": "3",
+      "answers": [
+        "Scrabs",
+        "Slogs",
+        "Sligs",
+        "Glukkons"
+      ]
+    },
+    {
+      "difficulty": "medium",
+      "question": "What is the name of the 8th installment in the Fire Emblem series?",
+      "rightAnswer": "3",
+      "answers": [
+        "Blazing Sword",
+        "Awakening",
+        "The Sacred Stones",
+        "Path of Radiance"
+      ]
+    },
+    {
+      "difficulty": "medium",
+      "question": "Which of these games takes place in the Irish town of Doolin, with the option to play as one of the characters, Ellen and Keats?",
+      "rightAnswer": "2",
+      "answers": [
+        "Shadow of the Colossus",
+        "Folklore",
+        "ICO",
+        "Beyond Good &amp; Evil"
+      ]
+    },
+    {
+      "difficulty": "medium",
+      "question": "Which stage was planned to be a part of &quot;Sonic the Hedgehog 2&quot;, but was scrapped during development?",
+      "rightAnswer": "1",
+      "answers": [
+        "Genocide City Zone",
+        "Stardust Speedway Zone",
+        "Sky High Zone ",
+        "Clockwork Zone"
+      ]
+    }
+  ],
+  "type" : "Video games"
+}
