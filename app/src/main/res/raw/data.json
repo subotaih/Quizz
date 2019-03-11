@@ -35,7 +35,7 @@
       "difficulty": "medium",
       "question": "In the anime Assassination Classroom what is the class that Korosensei teaches?",
       "rightAnswer": 2,
-      "incorrect_answers": [
+      "answers": [
         "Class 3-A",
         "Class 3-E",
         "Class 3-B",

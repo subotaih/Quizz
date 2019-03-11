@@ -10,7 +10,6 @@ import android.widget.Toast;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
-import java.util.List;
 
 
 public class MainActivity extends Activity {
@@ -27,9 +26,6 @@ public class MainActivity extends Activity {
             setContentView(R.layout.activity_main); //Utilise ce fichier-là, veut dire : prends ce XML et plaque-le dans activity -- R.id.X pour accéder aux identifiants créés
 
             try {
-                //JSONObject jsonObj = new JSONObject(loadJSONFromAsset(this));
-                //JSONArray data = jsonObj.getJSONArray("questions");
-                //questionList = Question.fromJson(data);
                 ObjectMapper obj = new ObjectMapper();
                 obj.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
                 questionList = obj.readValue(getResources().openRawResource(R.raw.data), Questions.class);
@@ -41,8 +37,7 @@ public class MainActivity extends Activity {
         }
 
     private void createQuestionView() {
-        final List<Question> q = questionList.getQuestions();
-        Question question = q.get(index.getValue());
+        Question question = questionList.getQuestions().get(index.getValue());
         String[] answers = question.getAnswers();
         questionView = findViewById(R.id.question);
         questionView.setText(question.getQuestion());
@@ -69,7 +64,7 @@ public class MainActivity extends Activity {
                     }
                     index.setValue(index.getValue() +1);
                     layout.removeAllViews();
-                    if (index.getValue() >= q.size()) {
+                    if (index.getValue() >= questionList.getQuestions().size()) {
                         questionView.setText("Félicitation ! Votre score est de " + score);
                     }
                     else createQuestionView();
