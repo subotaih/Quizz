@@ -20,7 +20,7 @@ public class MainActivity extends Activity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(MainActivity.this, Quizz.class);
-                    intent.putExtra("id", "data");
+                    intent.putExtra("id", "animes");
                     startActivity(intent);
                 }
             });
