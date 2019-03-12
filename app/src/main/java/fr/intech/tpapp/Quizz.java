@@ -26,14 +26,14 @@ public class Quizz extends Activity {
         super.onCreate(savedInstanceState); //Obligatoire pour que l'application fonctionne
         setContentView(R.layout.activity_quizz); //Utilise ce fichier-là, veut dire : prends ce XML et plaque-le dans activity -- R.id.X pour accéder aux identifiants créés
 
-        Bundle intent = getIntent().getExtras();
-        String json = intent.getString("id");
+        Bundle extra = getIntent().getExtras();
+        String id = extra.getString("id");
 
         try {
             ObjectMapper obj = new ObjectMapper();
             obj.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            if (json == "data") questionList = obj.readValue(getResources().openRawResource(R.raw.data), Questions.class);
-            else if (json == "video_games") questionList = obj.readValue(getResources().openRawResource(R.raw.video_games), Questions.class);
+            if (id.equals("data")) questionList = obj.readValue(getResources().openRawResource(R.raw.data), Questions.class);
+            else if (id.equals("video_games")) questionList = obj.readValue(getResources().openRawResource(R.raw.video_games), Questions.class);
 
         } catch ( IOException e) {
             e.printStackTrace();
