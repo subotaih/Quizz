@@ -8,11 +8,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
-        android:id="@+id/question"/>
+        android:id="@+id/categorie"/>
 
     <LinearLayout
         android:id="@+id/linearLayout"
