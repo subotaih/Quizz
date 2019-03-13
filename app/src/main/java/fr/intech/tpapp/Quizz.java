@@ -16,6 +16,16 @@ import android.widget.Toast;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Headers;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 
 public class Quizz extends Activity {
@@ -28,6 +38,8 @@ public class Quizz extends Activity {
     protected LinearLayout layout;
     protected boolean alternator = false;
     MediaPlayer rightSound;
+    protected String responseString;
+    protected String gameType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,24 +47,34 @@ public class Quizz extends Activity {
         setContentView(R.layout.activity_quizz); //Utilise ce fichier-là, veut dire : prends ce XML et plaque-le dans activity -- R.id.X pour accéder aux identifiants créés
 
         SQLiteDatabase db = new MyOpenHelper(this).getWritableDatabase();
+        db.close();
 
         rightSound = MediaPlayer.create(this, R.raw.nice);
         Bundle extra = getIntent().getExtras();
         String id = extra.getString("id");
-        String gameType = extra.getString("gameType");
+        gameType = extra.getString("gameType");
 
         try {
             ObjectMapper obj = new ObjectMapper();
             obj.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            questionList = obj.readValue(getResources().openRawResource(getResources().getIdentifier(id, "raw", this.getPackageName())), Questions.class);
 
-        } catch ( IOException e) {
+            if(id.equals("0")) run();
+            else {
+                questionList = obj.readValue(getResources().openRawResource(getResources().getIdentifier(id, "raw", this.getPackageName())), Questions.class);
+                displayData(gameType);
+            }
+
+
+        } catch ( IOException e ) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        createQuestionView (gameType);
+
+
     }
 
-    private void createQuestionView(final String gameType) {
+    private void displayData(final String gameType) {
         Question question = questionList.getQuestions().get(index.getValue());
         String[] answers = question.getAnswers();
         questionView = findViewById(R.id.question);
@@ -95,12 +117,65 @@ public class Quizz extends Activity {
                     if (index.getValue() >= questionList.getQuestions().size()) {
                         if(gameType.equals("2")) questionView.setText("Félicitation ! Votre score est de " + score_p1 + " pour le joueur 1 et " + score_p2 + " pour le second joueur");
                         else questionView.setText("Félicitation ! Votre score est de " + score_p1 );
-                    } else createQuestionView(gameType);
+                    } else displayData(gameType);
                 }
             });
             layout.addView(newButton);
             answerCount++;
         }
+    }
+
+    private Questions getRandomQuizz() throws IOException {
+        ObjectMapper obj = new ObjectMapper();
+        obj.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        List<Question> qList = new ArrayList<>();
+        Questions q = new Questions();
+        RandomResultList list =  obj.readValue(responseString, RandomResultList.class);
+        List<RandomQuestions> t = list.getResults();
+            for (RandomQuestions r : t) {
+                Question q2 = new Question();
+                q2.setQuestion(r.getQuestion());
+                String[] answers = new String[r.getIncorrect_answers().length + 1];
+                String[] tmp = r.getIncorrect_answers();
+                int index = 0;
+                for (String s : tmp){
+                    answers[index] = tmp[index];
+                    index++;
+                }
+                answers[r.getIncorrect_answers().length] = r.getCorrect_answer();
+                q2.setAnswers(answers);
+                q2.setRightAnswer(r.getIncorrect_answers().length);
+                qList.add(q2);
+        }
+        q.setQuestions(qList);
+        return q;
+    }
+
+    private final OkHttpClient client = new OkHttpClient();
+
+    public void run() throws Exception {
+        Request request = new Request.Builder()
+                .url("https://opentdb.com/api.php?amount=10")
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    if (!response.isSuccessful())
+                        throw new IOException("Unexpected code " + response);
+
+                    responseString = responseBody.string();
+                    questionList = getRandomQuizz();
+                    runOnUiThread(() -> displayData(gameType));
+                }
+            }
+        });
     }
 
     // Vibrate for 150 milliseconds
