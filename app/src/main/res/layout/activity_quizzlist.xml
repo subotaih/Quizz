@@ -15,6 +15,12 @@
         android:layout_marginTop="10dp"
         android:text="Choisis ton mode de jeu !"/>
 
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"

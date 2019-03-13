@@ -1,14 +1,27 @@
 package fr.intech.tpapp;
 
-
 public class Categorie {
-    public String[] list;
+    public String name;
+    public String json;
 
-    public String[] getList() {
-        return list;
+
+    public String getName() {
+        return name;
     }
 
-    public void setList(String[] list) {
-        this.list = list;
+    public void setName(String name) {
+        this.name = name;
     }
+
+    public String getJson() {
+        return json;
+    }
+
+    public void setJson(String json) {
+        this.json = json;
+    }
+
+
+
+
 }

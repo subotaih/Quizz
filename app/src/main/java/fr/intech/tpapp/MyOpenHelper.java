@@ -14,6 +14,7 @@ public class MyOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) { // Sera appelé une et une seule fois au lancement de l'application - adb uninstall fr.intech.tpapp lors d'un changement (ou onUpgrade)
         db.execSQL("CREATE TABLE game(place INTEGER PRIMARY KEY, score INTEGER)");
         db.execSQL("INSERT INTO game(place, score) VALUES(1, 0)");
+
     }
 
     @Override
