@@ -74,14 +74,14 @@ public class Quizz extends Activity {
                         score += 5;
                     } else {
                         Toast.makeText(Quizz.this, "Wrong ! -5pts ", Toast.LENGTH_LONG).show();
-                        shakeItBaby();
+                        wrongAnswer();
                         if(score > 5) score -= 5;
                         else score = 0;
                     }
                     index.setValue(index.getValue() +1);
                     layout.removeAllViews();
                     if (index.getValue() >= questionList.getQuestions().size()) {
-                        questionView.setText("Félicitation ! Votre score est de " + score);
+                        questionView.setText("Félicitations ! Votre score est de " + score);
                     }
                     else createQuestionView();
                 }
@@ -92,7 +92,7 @@ public class Quizz extends Activity {
     }
 
     // Vibrate for 150 milliseconds
-    private void shakeItBaby() {
+    private void wrongAnswer() {
         if (Build.VERSION.SDK_INT >= 26) {
             ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(VibrationEffect.createOneShot(500, 1));
         } else {
