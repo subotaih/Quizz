@@ -93,9 +93,15 @@ public class Quizz extends Activity {
                     layout.removeAllViews();
 
                     if (index.getValue() >= questionList.getQuestions().size()) {
+<<<<<<< HEAD
                         if(gameType.equals("2")) questionView.setText("Félicitation ! Votre score est de " + score_p1 + " pour le joueur 1 et " + score_p2 + " pour le second joueur");
                         else questionView.setText("Félicitation ! Votre score est de " + score_p1 );
                     } else createQuestionView(gameType);
+=======
+                        questionView.setText("Félicitations ! Votre score est de " + score);
+                    }
+                    else createQuestionView(gameType);
+>>>>>>> 5108c8e454b9b1f40514b189227324e83cc096c2
                 }
             });
             layout.addView(newButton);
