@@ -3,8 +3,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,24 +38,33 @@ public class QuizzList extends Activity {
             e.printStackTrace();
         }
         List<Categorie> catList = list.getList();
-        LinearLayout layout = findViewById(R.id.linearLayout);
+        ListView list = findViewById(R.id.list);
+        final String[] stringList = new String[catList.size()];
+        String[] nameList = new String[catList.size()];
 
+        int i = 0;
         for  (final Categorie s : catList){
-        final Button button = new Button(this);
-        button.setText(s.getName());
-        button.setOnClickListener(new View.OnClickListener() {
 
+       stringList[i] = s.getJson();
+       nameList[i] = s.getName();
+        i++;
+    }
+    list.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nameList));
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                Toast.makeText(getApplicationContext(),
+                        "Click ListItem Number " + position, Toast.LENGTH_LONG)
+                        .show();
                 Intent intent = new Intent(QuizzList.this, Quizz.class);
                 Bundle extras = new Bundle();
-                extras.putString("id",s.getJson());
+                extras.putString("id",stringList[position]);
                 extras.putString("gameType",gameType);
                 intent.putExtras(extras);
                 startActivity(intent);
             }
         });
-        layout.addView(button);
-    }
     }
 }
