@@ -18,9 +18,17 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
     </activity>
+        <receiver android:name=".AlarmReceiver"/>
+
 
         <activity android:name="fr.intech.tpapp.Quizz"
             android:label="Quizz">
+            <intent-filter>
+                <action android:name="android.intent.action.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="fr.intech.tpapp.QuizzList"
+            android:label="QuizzList">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>

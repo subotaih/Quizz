@@ -1,5 +1,6 @@
 package fr.intech.tpapp;
 import android.app.Activity;
+
 import android.database.sqlite.SQLiteDatabase;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -21,10 +22,11 @@ public class Quizz extends Activity {
 
     protected Questions questionList;
     protected final ObservableIndex index = new ObservableIndex(0);
-    protected int score = 0;
+    protected int score_p1 = 0;
+    protected int score_p2 = 0;
     protected TextView questionView;
     protected LinearLayout layout;
-
+    protected boolean alternator = false;
     MediaPlayer rightSound;
 
     @Override
@@ -37,7 +39,7 @@ public class Quizz extends Activity {
         rightSound = MediaPlayer.create(this, R.raw.nice);
         Bundle extra = getIntent().getExtras();
         String id = extra.getString("id");
-
+        String gameType = extra.getString("gameType");
 
         try {
             ObjectMapper obj = new ObjectMapper();
@@ -47,10 +49,10 @@ public class Quizz extends Activity {
         } catch ( IOException e) {
             e.printStackTrace();
         }
-        createQuestionView ();
+        createQuestionView (gameType);
     }
 
-    private void createQuestionView() {
+    private void createQuestionView(final String gameType) {
         Question question = questionList.getQuestions().get(index.getValue());
         String[] answers = question.getAnswers();
         questionView = findViewById(R.id.question);
@@ -71,19 +73,30 @@ public class Quizz extends Activity {
                     if(thisAnswer == rightAnswer ) {
                         Toast.makeText(Quizz.this, "Right ! +5pts ", Toast.LENGTH_LONG).show();
                         rightSound.start();
-                        score += 5;
+
+                        if(!alternator) score_p1 += 5;
+                        else score_p2 += 5;
                     } else {
                         Toast.makeText(Quizz.this, "Wrong ! -5pts ", Toast.LENGTH_LONG).show();
                         wrongAnswer();
-                        if(score > 5) score -= 5;
-                        else score = 0;
+                        if(!alternator) {
+                            if (score_p1 > 5) score_p1 -= 5;
+                            else score_p1 = 0;
+                        } else {
+                            if (score_p2 > 5) score_p2 -= 5;
+                            else score_p2 = 0;
+                        }
                     }
-                    index.setValue(index.getValue() +1);
+
+                    if(gameType.equals("2") && alternator) index.setValue(index.getValue() +1);
+                    if(gameType.equals("1")) index.setValue(index.getValue() +1);
+                    else alternator = !alternator;
                     layout.removeAllViews();
+
                     if (index.getValue() >= questionList.getQuestions().size()) {
                         questionView.setText("Félicitations ! Votre score est de " + score);
                     }
-                    else createQuestionView();
+                    else createQuestionView(gameType);
                 }
             });
             layout.addView(newButton);
@@ -99,4 +112,6 @@ public class Quizz extends Activity {
             ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(500);
         }
     }
+
+
 }

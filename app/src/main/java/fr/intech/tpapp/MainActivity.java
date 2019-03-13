@@ -1,38 +1,53 @@
 package fr.intech.tpapp;
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends Activity {
+    private PendingIntent pendingIntent;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState); //Obligatoire pour que l'application fonctionne
             setContentView(R.layout.activity_main); //Utilise ce fichier-là, veut dire : prends ce XML et plaque-le dans activity -- R.id.X pour accéder aux identifiants créés
 
-            Button animesButton = findViewById(R.id.animes);
-            Button gamesButton = findViewById(R.id.games);
+            Intent intent = new Intent(MainActivity.this, AlarmReceiver.class);
+            pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent , 0);
+            AlarmManager alrm = (AlarmManager) getSystemService(this.ALARM_SERVICE);
+            alrm.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 5000000, pendingIntent);
 
-            animesButton.setOnClickListener(new View.OnClickListener() {
+            Button solo = findViewById(R.id.solo);
+            Button twoPlayers = findViewById(R.id.vs);
+
+            solo.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, Quizz.class);
-                    intent.putExtra("id", "animes");
+                    Intent intent = new Intent(MainActivity.this, QuizzList.class);
+                    intent.putExtra("id", "1");
                     startActivity(intent);
                 }
             });
 
-            gamesButton.setOnClickListener(new View.OnClickListener() {
+            twoPlayers.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, Quizz.class);
-                    intent.putExtra("id", "video_games");
+                    Intent intent = new Intent(MainActivity.this, QuizzList.class);
+                    intent.putExtra("id", "2");
                     startActivity(intent);
                 }
             });
+
         }
+
 }
