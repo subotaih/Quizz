@@ -73,7 +73,6 @@ public class Quizz extends Activity {
                     if(thisAnswer == rightAnswer ) {
                         Toast.makeText(Quizz.this, "Right ! +5pts ", Toast.LENGTH_LONG).show();
                         rightSound.start();
-
                         if(!alternator) score_p1 += 5;
                         else score_p2 += 5;
                     } else {
@@ -94,9 +93,9 @@ public class Quizz extends Activity {
                     layout.removeAllViews();
 
                     if (index.getValue() >= questionList.getQuestions().size()) {
-                        questionView.setText("Félicitation ! Votre score est de " + score_p1 + "pour le joueur 1 et " + score_p2 + "pour le second joueur");
-                    }
-                    else createQuestionView(gameType);
+                        if(gameType.equals("2")) questionView.setText("Félicitation ! Votre score est de " + score_p1 + " pour le joueur 1 et " + score_p2 + " pour le second joueur");
+                        else questionView.setText("Félicitation ! Votre score est de " + score_p1 );
+                    } else createQuestionView(gameType);
                 }
             });
             layout.addView(newButton);
