@@ -1,2 +1,7 @@
-{ "list" :["animes","video_games"] }
+{ "list" :[
+  { "name" : "anime",
+    "json" : "animes"},
+  { "name" : "Jeux vidéos",
+    "json" : "video_games"}
+]}
 

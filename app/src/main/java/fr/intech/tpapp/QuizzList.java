@@ -11,12 +11,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 
 public class QuizzList extends Activity {
 
     public String gameType ;
-    private Categorie list;
+    private Categories list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState); //Obligatoire pour que l'application fonctionne
@@ -28,23 +29,23 @@ public class QuizzList extends Activity {
         obj.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         InputStream in = getResources().openRawResource(R.raw.categorie);
         try {
-            list = obj.readValue(in, Categorie.class);
+            list = obj.readValue(in, Categories.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String[] catList = list.getList();
+        List<Categorie> catList = list.getList();
         LinearLayout layout = findViewById(R.id.linearLayout);
 
-        for  (final String s : catList){
+        for  (final Categorie s : catList){
         final Button button = new Button(this);
-        button.setText(s);
+        button.setText(s.getName());
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(QuizzList.this, Quizz.class);
                 Bundle extras = new Bundle();
-                extras.putString("id",s);
+                extras.putString("id",s.getJson());
                 extras.putString("gameType",gameType);
                 intent.putExtras(extras);
                 startActivity(intent);
