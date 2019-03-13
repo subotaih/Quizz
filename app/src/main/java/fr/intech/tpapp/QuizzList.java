@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -44,20 +42,15 @@ public class QuizzList extends Activity {
 
         int i = 0;
         for  (final Categorie s : catList){
+               stringList[i] = s.getJson();
+               nameList[i] = s.getName();
+               i++;
+        }
 
-       stringList[i] = s.getJson();
-       nameList[i] = s.getName();
-        i++;
-    }
-    list.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nameList));
-
+        list.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nameList));
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                Toast.makeText(getApplicationContext(),
-                        "Click ListItem Number " + position, Toast.LENGTH_LONG)
-                        .show();
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(QuizzList.this, Quizz.class);
                 Bundle extras = new Bundle();
                 extras.putString("id",stringList[position]);

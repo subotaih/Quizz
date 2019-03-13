@@ -4,6 +4,7 @@ public class Categorie {
     public String name;
     public String json;
 
+
     public String getName() {
         return name;
     }
