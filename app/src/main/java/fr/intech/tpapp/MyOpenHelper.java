@@ -7,13 +7,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class MyOpenHelper extends SQLiteOpenHelper {
 
     public MyOpenHelper(Context context) {
-        super(context, "madb", null, 1);
+        super(context, "quizzdb", null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) { // Sera appelé une et une seule fois au lancement de l'application - adb uninstall fr.intech.tpapp lors d'un changement (ou onUpgrade)
-        db.execSQL("CREATE TABLE game(place INTEGER PRIMARY KEY, score INTEGER)");
-        db.execSQL("INSERT INTO game(place, score) VALUES(1, 0)");
+        db.execSQL("CREATE TABLE game(place_p1 PRIMARY KEY, place_p2 INTEGER, score_p1 INTEGER, score_p2 INTEGER)");
+        db.execSQL("INSERT INTO game(place_p1, place_p2, score_p1, score_p2) VALUES(1, 0, 0, 0)");
 
     }
 
