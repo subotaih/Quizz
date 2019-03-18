@@ -51,7 +51,9 @@ public class Quizz extends Activity {
 
         db = new MyOpenHelper(this).getWritableDatabase();
         dao = new GameStateDAO(db);
-        gameState = dao.get(db);
+        dao.erase();
+        dao.insertNew();
+        gameState = dao.get();
 
         rightSound = MediaPlayer.create(this, R.raw.nice);
         Bundle extra = getIntent().getExtras();
@@ -86,7 +88,10 @@ public class Quizz extends Activity {
     }
 
     private void displayData(final String gameType) {
-        Question question = questionList.getQuestions().get(index.getValue());
+        Question question;
+        if((gameType.equals("2") && !alternator) || gameType.equals("1")) question = questionList.getQuestions().get(gameState.getPlace_p1());
+        else question = questionList.getQuestions().get(gameState.getPlace_p2());
+        
         String[] answers = question.getAnswers();
         questionView = findViewById(R.id.question);
         questionView.setText(question.getQuestion());
@@ -120,17 +125,24 @@ public class Quizz extends Activity {
                         }
                     }
 
-                    if(gameType.equals("2") && alternator)
+                    if(gameType.equals("2") && !alternator)
                     {
-                        gameState.setPlace_p1(index.getValue() +1);
-                        gameState.setPlace_p2(index.getValue() +1);
+                        gameState.setPlace_p1(gameState.getPlace_p1() +1);
+                        alternator = !alternator;
                     }
-                    if(gameType.equals("1")) gameState.setPlace_p1(index.getValue() +1);
-                    else alternator = !alternator;
+                    else if(gameType.equals("2") && alternator)
+                    {
+                        gameState.setPlace_p2(gameState.getPlace_p2() +1);
+                        alternator = !alternator;
+                    }
+                    if(gameType.equals("1"))
+                    {
+                        gameState.setPlace_p1(gameState.getPlace_p1() +1);
+                    }
                     layout.removeAllViews();
 
                     if (gameState.getPlace_p1() >= questionList.getQuestions().size()) {
-                        if(gameType.equals("2") && gameState.getPlace_p2() >= questionList.getQuestions().size()) questionView.setText("Félicitations ! Votre score est de " + gameState.getScore_p1() + " pour le joueur 1 et " + gameState.getScore_p2() + " pour le joueur 2");
+                        if(gameType.equals("2") && gameState.getPlace_p1() >= questionList.getQuestions().size()) questionView.setText("Félicitations ! Votre score est de " + gameState.getScore_p1() + " pour le joueur 1 et " + gameState.getScore_p2() + " pour le joueur 2");
                         else questionView.setText("Félicitations ! Votre score est de " + gameState.getScore_p1());
                     } else displayData(gameType);
 

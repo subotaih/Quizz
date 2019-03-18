@@ -1,20 +1,11 @@
 package fr.intech.tpapp;
 
-import android.database.sqlite.SQLiteDatabase;
-
 public class GameState {
 
     private int score_p1;
     private int score_p2;
     private int place_p1;
     private int place_p2;
-
-    SQLiteDatabase db;
-
-    public GameState(SQLiteDatabase Db)
-    {
-        db = Db;
-    }
 
     public int getScore_p1() {
         return score_p1;
