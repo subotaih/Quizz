@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -15,13 +16,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Headers;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 
 public class QuizzList extends Activity {
@@ -45,6 +39,8 @@ public class QuizzList extends Activity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
         List<Categorie> catList = list.getList();
         ListView list = findViewById(R.id.list);
         final String[] stringList = new String[catList.size()];

@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
@@ -35,6 +36,8 @@ public class Quizz extends Activity {
     protected int score_p1 = 0;
     protected int score_p2 = 0;
     protected TextView questionView;
+    private TextView PlayerAlternate;
+
     protected LinearLayout layout;
     protected boolean alternator = false;
     MediaPlayer rightSound;
@@ -53,6 +56,10 @@ public class Quizz extends Activity {
         Bundle extra = getIntent().getExtras();
         String id = extra.getString("id");
         gameType = extra.getString("gameType");
+
+        PlayerAlternate = findViewById(R.id.alternate);
+        PlayerAlternate.setVisibility(View.GONE);
+
 
         try {
             ObjectMapper obj = new ObjectMapper();
@@ -118,6 +125,26 @@ public class Quizz extends Activity {
                         if(gameType.equals("2")) questionView.setText("Félicitation ! Votre score est de " + score_p1 + " pour le joueur 1 et " + score_p2 + " pour le second joueur");
                         else questionView.setText("Félicitation ! Votre score est de " + score_p1 );
                     } else displayData(gameType);
+
+                    if(gameType.equals("2"))  {
+                        PlayerAlternate.setVisibility(View.VISIBLE);
+                        long duration = 5000; // 5 seconds
+                        long tick = 100; // 0.1 seconds;
+
+                        new CountDownTimer(duration, tick) {
+
+                            public void onTick(long millisUntilFinished) {
+                                //PlayerAlternate.setAlpha(millisUntilFinished / (float)duration);
+                            }
+
+                            public void onFinish() {
+                                PlayerAlternate.setVisibility(View.GONE);
+                            }
+                        }.start();
+
+
+                    }
+
                 }
             });
             layout.addView(newButton);
